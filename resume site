@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contrôle des scènes Unity</title>
+    <style>
+        .button {
+            width: 150px;
+            height: 100px;
+            margin: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Choisissez une scène :</h1>
+    <div id="buttons">
+        <button class="button" onclick="sendScene(1)">Scène 1</button>
+        <button class="button" onclick="sendScene(2)">Scène 2</button>
+        <button class="button" onclick="sendScene(3)">Scène 3</button>
+        <button class="button" onclick="sendScene(4)">Scène 4</button>
+        <button class="button" onclick="sendScene(5)">Scène 5</button>
+        <button class="button" onclick="sendScene(6)">Scène 6</button>
+    </div>
+
+    <script>
+        // Se connecter au serveur WebSocket
+        var socket = new WebSocket("ws://localhost:8080"); // Assurez-vous d'utiliser la bonne URL de WebSocket
+
+        socket.onopen = function() {
+            console.log("Connexion WebSocket établie.");
+        };
+
+        socket.onmessage = function(event) {
+            console.log("Message reçu : " + event.data);
+        };
+
+        socket.onerror = function(error) {
+            console.error("Erreur WebSocket : ", error);
+        };
+
+        socket.onclose = function() {
+            console.log("Connexion WebSocket fermée.");
+        };
+
+        // Fonction pour envoyer le numéro de scène via WebSocket
+        function sendScene(sceneNumber) {
+            if (socket.readyState === WebSocket.OPEN) {
+                socket.send(JSON.stringify({ scene: sceneNumber }));
+                console.log("Envoyé : Scène " + sceneNumber);
+            } else {
+                console.log("Connexion WebSocket non disponible.");
+            }
+        }
+    </script>
+</body>
+</html>
