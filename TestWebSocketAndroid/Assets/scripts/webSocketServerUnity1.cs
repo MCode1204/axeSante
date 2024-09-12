@@ -7,16 +7,18 @@ public class WebSocketServerUnity : MonoBehaviour
 {
     private WebSocketServer wss;
 
+    public string ipaddress= "213.55.220.45";
+
     // Démarre le serveur WebSocket
     void Start()
     {
         DontDestroyOnLoad(gameObject);  // Rend cet objet persistant entre les scènes
 
         // Démarre le serveur WebSocket sur localhost, port 8080
-        wss = new WebSocketServer("ws://localhost:8080");
+        wss = new WebSocketServer("ws://"+ ipaddress+":8080");
         wss.AddWebSocketService<SceneHandler>("/SceneChange");
         wss.Start();
-        Debug.Log("Serveur WebSocket démarré sur ws://localhost:8080/SceneChange");
+        Debug.Log("Serveur WebSocket démarré sur ws://213.55.220.45:8080/SceneChange");
     }
 
     // Ferme le serveur WebSocket lorsque l'application est fermée
