@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/menu.unity
+    guid: 850ee49aeba09534dbc8cb9c9320fe0e
+  - enabled: 1
+    path: Assets/Scenes/BoredomScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/DisgustingScene 1.unity
+    guid: 3c5c0946277b7c741bcce9b1eaaa1bdc
+  - enabled: 0
+    path: Assets/Scenes/Android/BoredomScene 1.unity
+    guid: e9f53697fc76a2644bc831ba1e3966ad
+  - enabled: 0
+    path: Assets/Scenes/Android/DisgustingScene 2.unity
+    guid: 48cb728c781645a4e87e653f2bf0285c
+  - enabled: 0
+    path: Assets/Scenes/Android/menu 1.unity
+    guid: 3c3303dfa5824fb4aa73f30c1db9ae34
+  m_configObjects: {}
