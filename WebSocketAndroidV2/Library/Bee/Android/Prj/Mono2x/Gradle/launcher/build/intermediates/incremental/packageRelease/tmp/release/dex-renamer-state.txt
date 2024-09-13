@@ -1,0 +1,4 @@
+#Fri Sep 13 10:28:19 CEST 2024
+base.0=D\:\\WS_Web\\axeSante\\WebSocketAndroidV2\\Library\\Bee\\Android\\Prj\\Mono2x\\Gradle\\launcher\\build\\intermediates\\dex\\release\\mergeDexRelease\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
