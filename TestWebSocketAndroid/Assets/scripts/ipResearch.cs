@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UI; // Assurez-vous d'avoir cette ligne pour utiliser les composants UI
 using System.Net;
 using System.Net.Sockets;
 
 public class DisplayIPAddress : MonoBehaviour
 {
-    public Text ipAddressText; // Assurez-vous d'ajouter un objet Text à votre scène
+    public Text ipAddressText; // Champ public pour l'objet Text
 
     void Start()
     {

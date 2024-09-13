@@ -1,6 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - DisplayIPAddress
     - WebSocketServerUnity
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -11,6 +12,7 @@ ScriptsOnlyBuild:
     - TMPro.TMP_StyleSheet
     Unity.TextMeshPro.dll:
     - TMPro.TMP_FontAsset
+    - TMPro.TMP_InputField
     - TMPro.TMP_Settings
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
@@ -22,9 +24,12 @@ ScriptsOnlyBuild:
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
+    - UnityEngine.UI.LayoutElement
+    - UnityEngine.UI.RectMask2D
   serializedClasses:
     Unity.TextMeshPro:
     - TMPro.FaceInfo_Legacy
@@ -36,6 +41,11 @@ ScriptsOnlyBuild:
     - TMPro.TMP_GlyphAdjustmentRecord
     - TMPro.TMP_GlyphPairAdjustmentRecord
     - TMPro.TMP_GlyphValueRecord
+    - TMPro.TMP_InputField/OnChangeEvent
+    - TMPro.TMP_InputField/SelectionEvent
+    - TMPro.TMP_InputField/SubmitEvent
+    - TMPro.TMP_InputField/TextSelectionEvent
+    - TMPro.TMP_InputField/TouchScreenKeyboardEvent
     - TMPro.TMP_Sprite
     - TMPro.TMP_SpriteCharacter
     - TMPro.TMP_SpriteGlyph
@@ -49,7 +59,12 @@ ScriptsOnlyBuild:
     - UnityEngine.TextCore.GlyphMetrics
     - UnityEngine.TextCore.GlyphRect
     UnityEngine.UI:
+    - UnityEngine.UI.AnimationTriggers
+    - UnityEngine.UI.Button/ButtonClickedEvent
+    - UnityEngine.UI.ColorBlock
     - UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
+    - UnityEngine.UI.Navigation
+    - UnityEngine.UI.SpriteState
   methodsToPreserve: []
   sceneClasses:
     Assets/Scenes 1/BoredomScene.unity:
@@ -82,17 +97,17 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 16652}
+      Script: {instanceID: 16674}
     - Class: 114
-      Script: {instanceID: 17846}
+      Script: {instanceID: 17872}
     - Class: 114
-      Script: {instanceID: 20042}
+      Script: {instanceID: 20070}
     - Class: 114
-      Script: {instanceID: 20580}
+      Script: {instanceID: 20614}
     - Class: 114
-      Script: {instanceID: 20728}
+      Script: {instanceID: 20694}
     - Class: 114
-      Script: {instanceID: 24114}
+      Script: {instanceID: 20766}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -137,21 +152,21 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 16652}
+      Script: {instanceID: 16674}
     - Class: 114
-      Script: {instanceID: 17644}
+      Script: {instanceID: 17670}
     - Class: 114
-      Script: {instanceID: 17846}
+      Script: {instanceID: 17872}
     - Class: 114
-      Script: {instanceID: 20042}
+      Script: {instanceID: 20070}
     - Class: 114
-      Script: {instanceID: 20580}
+      Script: {instanceID: 20614}
     - Class: 114
-      Script: {instanceID: 20728}
+      Script: {instanceID: 20694}
     - Class: 114
-      Script: {instanceID: 21042}
+      Script: {instanceID: 20766}
     - Class: 114
-      Script: {instanceID: 24114}
+      Script: {instanceID: 21080}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -194,23 +209,37 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 16652}
+      Script: {instanceID: 16674}
     - Class: 114
-      Script: {instanceID: 17228}
+      Script: {instanceID: 16796}
     - Class: 114
-      Script: {instanceID: 17846}
+      Script: {instanceID: 17252}
     - Class: 114
-      Script: {instanceID: 19108}
+      Script: {instanceID: 17670}
     - Class: 114
-      Script: {instanceID: 19356}
+      Script: {instanceID: 17872}
     - Class: 114
-      Script: {instanceID: 20042}
+      Script: {instanceID: 18160}
     - Class: 114
-      Script: {instanceID: 20580}
+      Script: {instanceID: 19116}
     - Class: 114
-      Script: {instanceID: 20728}
+      Script: {instanceID: 19130}
     - Class: 114
-      Script: {instanceID: 24114}
+      Script: {instanceID: 19378}
+    - Class: 114
+      Script: {instanceID: 19824}
+    - Class: 114
+      Script: {instanceID: 19894}
+    - Class: 114
+      Script: {instanceID: 20070}
+    - Class: 114
+      Script: {instanceID: 20614}
+    - Class: 114
+      Script: {instanceID: 20694}
+    - Class: 114
+      Script: {instanceID: 20766}
+    - Class: 114
+      Script: {instanceID: 21080}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -668,6 +697,12 @@ ScriptsOnlyBuild:
     className: UnityOnEndDragMessageListener
   - hash:
       serializedVersion: 2
+      Hash: 2c437c30b140409d4937955e3f2967aa
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: DisplayIPAddress
+  - hash:
+      serializedVersion: 2
       Hash: db9b308769d19e1f9e161df0392c23ca
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
@@ -786,6 +821,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: AnimatorMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: f5e361e538646cc42dc59f63188e6579
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: WebSocketServerUnity
   - hash:
       serializedVersion: 2
       Hash: 33656f83bb0079184b2206a69690ec46
@@ -1050,12 +1091,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
-  - hash:
-      serializedVersion: 2
-      Hash: f5e361e538646cc42dc59f63188e6579
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: WebSocketServerUnity
   platform: 13
   scenePathNames:
   - Assets/Scenes 1/menu.unity
