@@ -5,6 +5,7 @@ android.hardware.vulkan.version was added because:
 android.permission.INTERNET was added because:
 	System.Net.Sockets was present in:
 		websocket-sharp-FeaturesChecked.txt
+	Development player
 	Force Internet Permission
 android.hardware.touchscreen.multitouch, android.hardware.touchscreen.multitouch.distinct were enabled because:
 	UnityEngine.Input::GetTouch was present in:

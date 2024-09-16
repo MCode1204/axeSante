@@ -1,12 +1,44 @@
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Changer Scene Unity</title>
+    <title>Changer de scene Unity</title>
 </head>
 <body>
-    <h1>axeSante</h1>
-    <p>choose your scene</p>
-  
+    <h1>Changer de scene Unity v21</h1>
+    <div>
+        <button onclick="sendMessage('BoredomScene')">BoredomScene</button>
+        <button onclick="sendMessage('DisgustingScene 1')">DisgustingScene 1</button>
+
+    </div>
+
+    <script>
+        let ws = new WebSocket('ws://192.168.1.106:8080/SceneChange');
+
+        ws.onopen = function() {
+            console.log('WebSocket is connected');
+            console.log('WebSocket connecté');
+        };
+
+        ws.onmessage = function(event) {
+            console.log('Message from Unity: ', event.data);
+            console.log('Message reçu de Unity: ', event.data);
+        };
+
+        ws.onclose = function() {
+            console.log('WebSocket is closed');
+            console.log('WebSocket déconnecté');
+        };
+
+        function sendMessage(sceneName) {
+            if (ws.readyState === WebSocket.OPEN) {
+                ws.send(sceneName);
+                console.log('Message envoyé: ' + sceneName);
+                console.log('Message envoyé : ' + sceneName);
+            } else {
+                console.log('WebSocket non connecté');
+            }
+        }
+    </script>
 </body>
 </html>

@@ -2,21 +2,30 @@ using UnityEngine;
 using WebSocketSharp.Server;
 using WebSocketSharp;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
+using System.Collections;
 
 public class WebSocketServerUnity : MonoBehaviour
 {
     private WebSocketServer wss;
+   [SerializeField] private string baseAddress = "ws://192.168.1.";  // Base de l'IP
+    [SerializeField] private int port = 8080;  // Le port sur lequel ton serveur écoute.
+    private List<string> availableHosts = new List<string>();
 
     // Démarre le serveur WebSocket
     void Start()
     {
         DontDestroyOnLoad(gameObject);  // Rend cet objet persistant entre les scènes
 
-        // Démarre le serveur WebSocket sur localhost, port 8080
-        wss = new WebSocketServer("wss://172.20.10.4:443");
+        // Démarre le serveur WebSocket sur localhost, port 8080,
+        // wss = new WebSocketServer("ws://192.168.1.106:8080");
+        wss = new WebSocketServer(port);
         wss.AddWebSocketService<SceneHandler>("/SceneChange");
         wss.Start();
-        Debug.Log("Serveur WebSocket démarré sur wss://172.20.10.4:443/SceneChange");
+        Debug.Log("Serveur WebSocket démarré sur ws://0.0.0.0:8080/SceneChange");
+
+        // Scanner les IPs de 1 à 255 (modifiez selon les besoins).
+        StartCoroutine(ScanNetworkForWebSocketHosts());
     }
 
     // Ferme le serveur WebSocket lorsque l'application est fermée
@@ -45,5 +54,60 @@ public class WebSocketServerUnity : MonoBehaviour
                 SceneManager.LoadScene(sceneName);
             }
         }
+    }
+    public IEnumerator ScanNetworkForWebSocketHosts()
+    {
+        for (int i = 1; i < 255; i++)
+        {
+            string ip = baseAddress + i.ToString();
+            string wsAddress = ip + ":" + port;
+
+            Debug.Log("Testing " + wsAddress);
+
+            // Tester la connexion WebSocket.
+            WebSocket ws = new WebSocket("ws://" + wsAddress);
+            bool connectionSuccessful = false;
+            bool connectionFailed = false;
+
+            ws.OnOpen += (sender, e) =>
+            {
+                Debug.Log("Connection success: " + wsAddress);
+                availableHosts.Add(wsAddress);
+                connectionSuccessful = true;
+                ws.Close();  // Fermez la connexion après le succès.
+            };
+
+            ws.OnError += (sender, e) =>
+            {
+                Debug.Log("Connection failed: " + wsAddress + " - " + e.Message);
+                connectionFailed = true;
+            };
+
+            ws.ConnectAsync();
+
+            // Attendre jusqu'à 5 secondes pour la connexion
+            float timeout = 5.0f;
+            while (!connectionSuccessful && !connectionFailed && timeout > 0)
+            {
+                timeout -= Time.deltaTime;
+                yield return null;  // Attendre la frame suivante.
+            }
+
+            // Si la connexion a échoué après le timeout, loguez une erreur.
+            if (!connectionSuccessful && timeout <= 0)
+            {
+                Debug.Log("Connection timed out: " + wsAddress);
+                connectionFailed = true;
+            }
+
+            yield return new WaitForSeconds(1.0f);  // Attendre 1 seconde avant de tester l’IP suivante.
+        }
+
+        Debug.Log("Scan terminé. Hôtes disponibles :");
+        foreach (string host in availableHosts)
+        {
+            Debug.Log(host);
+        }
+
     }
 }
