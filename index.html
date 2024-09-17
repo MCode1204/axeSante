@@ -1,40 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Changer Scene Unity</title>
-    <title>Changer de scene Unity</title>
+  
+    <style>
+        /* Style pour le bouton de statut de connexion */
+        #statusButton {
+            padding: 10px 20px;
+            color: white;
+            background-color: red; /* Rouge si déconnecté */
+            border: none;
+            border-radius: 5px;
+            cursor: default;
+        }
+
+        /* Centrer tout le contenu */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            background-color: #add8e6; /* Bleu clair */
+        }
+
+        /* Style pour les boutons de scène */
+        .scene-button {
+            width: 150px;
+            height: 150px;
+            margin: 20px;
+            background-color: blue; /* Bleu pour les boutons */
+            color: white;
+            border: none;
+            border-radius: 50%; /* Cercle */
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .scene-button:hover {
+            background-color: darkblue; /* Bleu foncé au survol */
+        }
+
+        /* Style pour le conteneur des boutons */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>Changer de scene Unity v21</h1>
-    <div>
-        <button onclick="sendMessage('BoredomScene')">BoredomScene</button>
-        <button onclick="sendMessage('DisgustingScene 1')">DisgustingScene 1</button>
+    <h1>Changer de scene</h1>
 
+    <!-- Bouton de statut de connexion -->
+    <div>
+        <button id="statusButton">Non connecté</button>
+    </div>
+
+    <!-- Conteneur pour les boutons de scène -->
+    <div class="button-container">
+        <button class="scene-button" onclick="sendMessage('BoredomScene')">BoredomScene</button>
+        <button class="scene-button" onclick="sendMessage('DisgustingScene 1')">DisgustingScene 1</button>
     </div>
 
     <script>
         let ws = new WebSocket('ws://192.168.1.106:8080/SceneChange');
+        const statusButton = document.getElementById('statusButton');
 
         ws.onopen = function() {
-            console.log('WebSocket is connected');
             console.log('WebSocket connecté');
+            statusButton.textContent = 'Connecté';
+            statusButton.style.backgroundColor = 'green'; // Passe en vert lorsqu'il est connecté
         };
 
         ws.onmessage = function(event) {
-            console.log('Message from Unity: ', event.data);
             console.log('Message reçu de Unity: ', event.data);
         };
 
         ws.onclose = function() {
-            console.log('WebSocket is closed');
             console.log('WebSocket déconnecté');
+            statusButton.textContent = 'Non connecté';
+            statusButton.style.backgroundColor = 'red'; // Revient au rouge en cas de déconnexion
         };
 
         function sendMessage(sceneName) {
             if (ws.readyState === WebSocket.OPEN) {
                 ws.send(sceneName);
                 console.log('Message envoyé: ' + sceneName);
-                console.log('Message envoyé : ' + sceneName);
             } else {
                 console.log('WebSocket non connecté');
             }

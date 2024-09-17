@@ -118,7 +118,7 @@ public class WebSocketServerUnity : MonoBehaviour
             ws.ConnectAsync();
 
             // Attendre jusqu'à 5 secondes pour la connexion
-            float timeout = 1.0f;
+            float timeout = 5.0f;
             while (!connectionSuccessful && !connectionFailed && timeout > 0)
             {
                 timeout -= Time.deltaTime;
