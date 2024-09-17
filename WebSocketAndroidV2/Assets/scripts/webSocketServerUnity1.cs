@@ -4,6 +4,9 @@ using WebSocketSharp;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Collections;
+using System.Threading.Tasks;
+
+
 
 public class WebSocketServerUnity : MonoBehaviour
 {
@@ -12,6 +15,9 @@ public class WebSocketServerUnity : MonoBehaviour
     [SerializeField] private int port = 8080;  // Le port sur lequel ton serveur écoute.
     private List<string> availableHosts = new List<string>();
 
+    // WebSocket pour le client Unity
+    private WebSocket wsClient;
+
     // Démarre le serveur WebSocket
     void Start()
     {
@@ -19,13 +25,39 @@ public class WebSocketServerUnity : MonoBehaviour
 
         // Démarre le serveur WebSocket sur localhost, port 8080,
         // wss = new WebSocketServer("ws://192.168.1.106:8080");
-        wss = new WebSocketServer(port);
+        wss = new WebSocketServer("ws://0.0.0.0:" + port);
         wss.AddWebSocketService<SceneHandler>("/SceneChange");
         wss.Start();
         Debug.Log("Serveur WebSocket démarré sur ws://0.0.0.0:8080/SceneChange");
 
         // Scanner les IPs de 1 à 255 (modifiez selon les besoins).
         StartCoroutine(ScanNetworkForWebSocketHosts());
+
+        // Initialiser et se connecter en tant que client WebSocket
+        wsClient = new WebSocket("ws://192.168.1.106:8080"); // Remplace par l'adresse de ton serveur WebSocket
+
+        wsClient.OnOpen += (sender, e) =>
+        {
+            Debug.Log("Connexion établie avec le serveur WebSocket.");
+            wsClient.Send("Client Unity connecté");  // Message pour identifier le client
+        };
+
+        wsClient.OnMessage += (sender, e) =>
+        {
+            Debug.Log("Message reçu du serveur : " + e.Data);
+        };
+
+        wsClient.OnError += (sender, e) =>
+        {
+            Debug.LogError("Erreur WebSocket : " + e.Message);
+        };
+
+        wsClient.OnClose += (sender, e) =>
+        {
+            Debug.Log("Connexion fermée avec le serveur WebSocket.");
+        };
+
+        wsClient.Connect();
     }
 
     // Ferme le serveur WebSocket lorsque l'application est fermée
@@ -86,7 +118,7 @@ public class WebSocketServerUnity : MonoBehaviour
             ws.ConnectAsync();
 
             // Attendre jusqu'à 5 secondes pour la connexion
-            float timeout = 5.0f;
+            float timeout = 1.0f;
             while (!connectionSuccessful && !connectionFailed && timeout > 0)
             {
                 timeout -= Time.deltaTime;
@@ -109,5 +141,33 @@ public class WebSocketServerUnity : MonoBehaviour
             Debug.Log(host);
         }
 
+    }
+    private async Task<bool> TestWebSocketConnection(string wsAddress)
+    {
+        using (var ws = new WebSocket(wsAddress))
+        {
+            bool connectionSuccessful = false;
+            TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
+
+            ws.OnOpen += (sender, e) =>
+            {
+                connectionSuccessful = true;
+                tcs.SetResult(true);
+                ws.Close();
+            };
+
+            ws.OnError += (sender, e) =>
+            {
+                tcs.SetResult(false);
+            };
+
+            ws.OnClose += (sender, e) =>
+            {
+                tcs.TrySetResult(connectionSuccessful);
+            };
+
+            ws.ConnectAsync();
+            return await tcs.Task;
+        }
     }
 }

@@ -1,60 +1,36 @@
 {
     "m_SelectedDeviceId": "R9YTB03ATBL",
     "m_SelectedProcess": {
-        "deviceId": "R9YTB03ATBL",
-        "name": "com.DefaultCompany.WebSocketAndroidV2",
-        "processId": 8785,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownProcessesForSerialization": [
         {
             "deviceId": "R9YTB03ATBL",
-            "name": "com.sec.android.app.launcher",
-            "processId": 1774,
-            "exited": false
-        },
-        {
-            "deviceId": "R9YTB03ATBL",
-            "name": "com.DefaultCompany.WebSocketAndroidV2",
-            "processId": 31388,
-            "exited": true
-        },
-        {
-            "deviceId": "R9YTB03ATBL",
-            "name": "com.DefaultCompany.WebSocketAndroidV2",
-            "processId": 2208,
-            "exited": true
-        },
-        {
-            "deviceId": "R9YTB03ATBL",
-            "name": "com.DefaultCompany.WebSocketAndroidV2",
-            "processId": 5220,
-            "exited": true
-        },
-        {
-            "deviceId": "R9YTB03ATBL",
-            "name": "com.DefaultCompany.WebSocketAndroidV2",
-            "processId": 6298,
-            "exited": true
-        },
-        {
-            "deviceId": "R9YTB03ATBL",
-            "name": "com.DefaultCompany.WebSocketAndroidV2",
-            "processId": 6588,
-            "exited": false
-        },
-        {
-            "deviceId": "R9YTB03ATBL",
             "name": "com.DefaultCompany.WebSocketAndroidV2",
             "processId": 8292,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R9YTB03ATBL",
             "name": "com.DefaultCompany.WebSocketAndroidV2",
             "processId": 8785,
-            "exited": false
+            "exited": true
+        },
+        {
+            "deviceId": "R9YTB03ATBL",
+            "name": "com.DefaultCompany.WebSocketAndroidV2",
+            "processId": 11893,
+            "exited": true
+        },
+        {
+            "deviceId": "R9YTB03ATBL",
+            "name": "com.DefaultCompany.WebSocketAndroidV2",
+            "processId": 14998,
+            "exited": true
         }
     ],
     "m_Tags": {
